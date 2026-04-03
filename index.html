@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para mi cachetona hermosa 💗</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:black;
+  font-family: Arial, sans-serif;
+}
+
+#texto{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:white;
+  text-align:center;
+  z-index:10;
+}
+
+h1{
+  font-size:42px;
+  text-shadow:0 0 20px #ff4da6;
+}
+
+p{
+  font-size:20px;
+  opacity:0.9;
+}
+
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  font-size:16px;
+  background:#ff4da6;
+  border:none;
+  border-radius:12px;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 15px #ff4da6;
+}
+
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="texto">
+<h1>Para mi cachetona hermosa 🥹💗</h1>
+<p>Eres la estrella más linda de mi galaxia ✨</p>
+
+<button onclick="musica.play()">Tocar canción 🎵</button>
+</div>
+
+<canvas id="galaxia"></canvas>
+
+<audio id="musica" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+const canvas = document.getElementById("galaxia");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let estrellas = [];
+
+for(let i=0;i<500;i++){
+  estrellas.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    size: Math.random()*2,
+    speed: Math.random()*0.6
+  });
+}
+
+function animar(){
+  ctx.fillStyle="black";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle="white";
+
+  estrellas.forEach(e=>{
+    ctx.beginPath();
+    ctx.arc(e.x,e.y,e.size,0,Math.PI*2);
+    ctx.fill();
+
+    e.y += e.speed;
+
+    if(e.y > canvas.height){
+      e.y = 0;
+      e.x = Math.random()*canvas.width;
+    }
+  });
+
+  requestAnimationFrame(animar);
+}
+
+animar();
+
+window.addEventListener("resize",()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
